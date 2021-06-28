@@ -1,1 +1,56 @@
 /* Other rules */
+body {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  /* align-content: center; */
+}
+.container {
+  border: solid 3px rgb(103, 124, 124);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  /* display: flex; */
+  /* align-content: center; */
+  /* align-items: center;
+  justify-content: center; */
+}
+.list-container {
+  /* display: inherit; */
+  /* display: flex;*/
+
+  border: solid 3px cyan;
+}
+ul {
+  display: inherit;
+  border: solid 3px rgb(46, 90, 90);
+}
+li {
+  display: inherit;
+  text-align: center;
+  border: solid 3px rgb(90, 46, 88);
+}
+.form {
+  border: solid 3px rgb(149, 147, 255);
+  display: inherit;
+  justify-content: flex-end;
+  width: 60%;
+  height: 35px;
+}
+.text-input {
+  display: inherit;
+  width: 80%;
+}
+.add-button {
+  display: inherit;
+  width: 20%;
+  justify-content: center;
+}
+.successful-promise {
+  text-decoration: line-through;
+}
+
+/* have-not-been-done-yet {
+} */
