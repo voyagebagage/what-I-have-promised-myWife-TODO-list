@@ -1,19 +1,31 @@
 /* Other rules */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap");
+* {
+  font-family: "Montserrat Alternates", sans-serif;
+}
 .container {
-  border: solid 3px rgb(103, 124, 124);
+  margin: 2%;
+  border: groove 2px #5d47d3;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  height: 800px;
+  height: 700px;
+  border-radius: 5px;
+}
+legend {
+  font-size: 30px;
+  display: inherit;
+  align-items: center;
+  line-height: 60px;
 }
 .list-container {
-  /* display: inherit; */
-  /* display: flex;*/
+  transform: translate(-16%);
+
   overflow: hidden;
-  border: solid 3px cyan;
-  max-height: 40%;
-  margin: 1% auto;
+  max-height: 34%;
+  max-width: 49%;
+  margin: 3.5% auto;
   overflow-y: scroll;
 }
 ::-webkit-scrollbar {
@@ -38,9 +50,7 @@
     opacity: 1;
   }
 }
-/* .fade-down {
-  animation: to-bottom 0.5s ease-out forwards;
-} */
+
 .successful-promise {
   text-decoration: line-through;
   animation: to-bottom 0.7s ease-out forwards;
@@ -74,7 +84,7 @@
     opacity: 0;
   } */
   100% {
-    transform: translateY(-20px);
+    transform: translateX(-20px);
     opacity: 0;
   }
 }
@@ -84,32 +94,46 @@ ul {
   align-items: flex-start;
   flex-shrink: 0;
   margin-top: 0;
-  border: solid 3px rgb(46, 90, 90);
 }
 
 li {
   display: inherit;
   text-align: center;
-  border: solid 3px rgb(90, 46, 88);
 }
 .form {
-  border: solid 3px rgb(149, 147, 255);
   display: inherit;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-self: center;
   text-overflow: ellipsis;
   width: 60%;
   height: 35px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .text-input {
   display: inherit;
-  width: 80%;
+  width: 75%;
+  border-width: thin;
+  border-radius: 3px;
+  background-color: #f2f7fd;
+}
+input:focus {
+  outline: none;
 }
 .add-button {
   display: inherit;
   width: 20%;
   justify-content: center;
+  border-radius: 5px;
+  color: white;
+  background-color: #5d47d3;
 }
-
-/* have-not-been-done-yet {
-} */
+.add-button:hover {
+  cursor: pointer;
+}
+.add-button:active {
+  background-color: white;
+  color: #5d47d3;
+}

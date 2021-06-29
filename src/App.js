@@ -9,55 +9,49 @@ library.add(faTrashAlt, faListAlt);
 function App() {
   const [list, setList] = useState([]);
   const [textInput, setTextInput] = useState("");
-  const [count, setCount] = useState(0);
 
   const handleSubmit = (e) => {
+    //adding
     e.preventDefault();
-
-    const newPromiseAdd = [...list];
-
+    const newPromiseAdd = [...list]; //copy my list onto a new array
     const arrNotDone = list.filter(
+      //splitting the list into 2 arrays if needed, here 1st, unchecked boxes result
       (elemNotDone) => elemNotDone.haveBeenDoneYet !== true
     );
     const arrDone = list.filter(
+      //here 2nd, checked boxes
       (elemDone) => elemDone.haveBeenDoneYet !== false
     );
-
     if (arrDone.length === 0) {
-      console.log("----1------");
+      //if nothing is checked use the very 1st array
       newPromiseAdd.push({
         id: Math.round(Math.random() * 1000),
         value: textInput,
         haveBeenDoneYet: false,
-        remove: false,
       });
-      setList(newPromiseAdd);
-      setCount(list.length);
-
-      setTextInput("");
+      setList(newPromiseAdd); //updating
+      setTextInput(""); //clearing the input field
     }
-
     if (arrDone.length !== 0) {
-      console.log("----2------");
+      //if any is checked push the last submission to the array of undone tasks
       arrNotDone.push({
         id: Math.round(Math.random() * 1000),
         value: textInput,
         haveBeenDoneYet: false,
         adding: true,
-        remove: false,
       });
       const newArr = [...arrNotDone, ...arrDone];
-      setList(newArr);
-      setCount(list.length);
-
+      setList(newArr); //updating
       setTextInput("");
     }
   };
 
   const handleCheck = (index) => {
+    //updating
     const newPromiseCheck = [...list];
     newPromiseCheck[index].haveBeenDoneYet =
-      !newPromiseCheck[index].haveBeenDoneYet;
+      !newPromiseCheck[index].haveBeenDoneYet; //check/uncheck
+    //splitting again done tasks/ undone
     const arrNotDone = list.filter(
       (elemNotDone) => elemNotDone.haveBeenDoneYet !== true
     );
@@ -66,75 +60,62 @@ function App() {
     );
 
     if (newPromiseCheck[index].haveBeenDoneYet) {
+      // if we check
       const itemToGoLast = newPromiseCheck.splice(index, 1);
-      newPromiseCheck.push(itemToGoLast[0]);
+      newPromiseCheck.push(itemToGoLast[0]); //push the done task to the end of the list
       return setList(newPromiseCheck);
     }
 
     if (!newPromiseCheck[index].haveBeenDoneYet) {
+      //if we uncheck, we want the elem to go down the undone tasks
       const itemToGoLast = newPromiseCheck.splice(index, 1);
-      arrDone.filter((elem) => elem !== itemToGoLast[0]);
-      arrNotDone.pop();
+      arrDone.filter((elem) => elem !== itemToGoLast[0]); //filtering to not get the elem in the list
+      arrNotDone.pop(); //avoid doubles
       const newPromiseCheckUncheck = [];
-      newPromiseCheckUncheck.push(...arrNotDone, itemToGoLast[0], ...arrDone);
-      return setList(newPromiseCheckUncheck);
+      newPromiseCheckUncheck.push(...arrNotDone, itemToGoLast[0], ...arrDone); //sorting the order
+      return setList(newPromiseCheckUncheck); //updating
     }
   };
   const handleClickDelete = (index) => {
+    //removing
     const newPromiseDelete = [...list];
-    newPromiseDelete[index].remove = true;
-    console.log(newPromiseDelete[index]);
-
-    newPromiseDelete.splice(index, 1);
-    setCount(list.length);
-
-    console.log(newPromiseDelete);
-    setList(newPromiseDelete);
+    newPromiseDelete.splice(index, 1); //spotting the elem to remove
+    setList(newPromiseDelete); //updating
   };
 
   return (
-    <div className="container">
+    <fieldset className="container">
+      <legend>
+        <span>
+          &nbsp;
+          <FontAwesomeIcon
+            icon="list-alt"
+            style={{ color: "#5d47d3", height: 40, width: 40 }}
+          />
+        </span>
+        &nbsp;&nbsp;What have I promised my wife ? &nbsp;
+      </legend>
       <div className="list-container">
         {list.map((promise, index) => {
-          console.log("index", index);
-          console.log("count", count);
-          // setCount(list.length);
-          // if (count > list.length) {
-          //   console.log("coucouc");
-          // }
           return (
             <ul
               key={promise.id}
               className={
                 promise.haveBeenDoneYet
                   ? "successful-promise"
-                  : list.length < count
-                  ? "remove"
                   : "have-not-been-done-yet"
-                // : ""
               }
             >
-              {console.log(
-                "---------------",
-                promise.haveBeenDoneYet,
-                "yet",
-                promise.remove,
-                "remove",
-                promise.adding,
-                "add"
-              )}
-
               <li>
                 <span>
-                  <input
-                    type="checkbox"
-                    // className="fade-down"
-                    onChange={() => handleCheck(index)}
-                  />
+                  <input type="checkbox" onChange={() => handleCheck(index)} />
                 </span>
                 <span>&nbsp;{promise.value}&nbsp;</span>
                 <span onClick={() => handleClickDelete(index)}>
-                  <FontAwesomeIcon icon="trash-alt" />
+                  <FontAwesomeIcon
+                    icon="trash-alt"
+                    style={{ color: "#5d47d3", height: "75%" }}
+                  />
                 </span>
               </li>
             </ul>
@@ -147,12 +128,12 @@ function App() {
           type="text"
           value={textInput}
           autoFocus
-          placeholder="I promised my wife to ?"
+          placeholder="  I promised my wife to ?"
           onChange={(e) => setTextInput(e.target.value)}
         />
         <input className="add-button" type="submit" value="add promise" />
       </form>
-    </div>
+    </fieldset>
   );
 }
 
